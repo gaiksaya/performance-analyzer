@@ -14,6 +14,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: opendistro-for-elasticsearch/performance-analyzer-rca
+          ref: v1.12.0.0
           path: ./tmp/rca
       - name: Checkout Performance Analyzer package
         uses: actions/checkout@v2
@@ -30,7 +31,7 @@ jobs:
         working-directory: ./tmp/rca
         run: ./gradlew publishToMavenLocal
       - name: Build PA gradle using the new RCA jar
-        working-directory: ./tmp/pa
+        working-directory: ./tmp/pa     
         run: rm licenses/performanceanalyzer-rca-1.12.jar.sha1
       - name: Update SHA
         working-directory: ./tmp/pa
