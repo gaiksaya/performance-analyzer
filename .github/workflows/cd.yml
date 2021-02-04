@@ -2,8 +2,8 @@ name: CD
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - "new"
 
 jobs:
   build:
@@ -57,14 +57,4 @@ jobs:
       - name: Upload Artifacts to S3
         working-directory: ./tmp/pa
         run: |
-          s3_path=s3://artifacts.opendistroforelasticsearch.amazon.com/downloads
-          aws s3 cp artifacts/*.zip $s3_path/elasticsearch-plugins/performance-analyzer/
-          aws s3 cp artifacts/*.rpm $s3_path/rpms/opendistro-performance-analyzer/
-          aws s3 cp artifacts/*.deb $s3_path/debs/opendistro-performance-analyzer/
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.DISTRIBUTION_ID }} --paths "/downloads/*"
-
-      - name: Upload Workflow Artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: artifacts
-          path: ./tmp/pa/artifacts/
+          aws s3 cp artifacts/*.deb s3://staging.artifacts.opendistroforelasticsearch.amazon.com/repos/all-old-debs/

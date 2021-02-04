@@ -454,7 +454,7 @@ afterEvaluate {
     }
 
     buildDeb {
-        arch = 'amd64'
+        arch = 'all'
         postInstall file('packaging/deb/postinst')
         postUninstall file('packaging/deb/postrm')
         archiveName "${packageName}-${version}.deb"
